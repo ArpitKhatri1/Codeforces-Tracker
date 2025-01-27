@@ -3,8 +3,10 @@ import { useUserProblemList } from '@/hooks/useUserProblemList'
 import React from 'react'
 import ProblemCard from './problem-card'
 
+
 const ProblemList = () => {
-    const { response, isLoading } = useUserProblemList("ArpitKhatri1")
+    const handle = localStorage.getItem("CFTrackerID") as string
+    const { response, isLoading } = useUserProblemList(handle)
     const responses = response
     return (
         <div>

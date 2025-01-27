@@ -32,3 +32,25 @@ export type userProblemList = {
   status: string;
   result: userProblemListResult[];
 };
+
+export type UserProfile = {
+  lastName: string;
+  lastOnlineTimeSeconds: number;
+  rating: number;
+  friendOfCount: number;
+  titlePhoto: string;
+  handle: string;
+  avatar: string;
+  firstName: string;
+  contribution: number;
+  organization: string;
+  rank: string;
+  maxRating: number;
+  registrationTimeSeconds: number;
+  maxRank: string;
+};
+
+export type UserProfileResponse = {
+  status: string;
+  result: UserProfile[];
+};

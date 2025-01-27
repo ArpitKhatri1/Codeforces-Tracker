@@ -1,9 +1,22 @@
 "use client"
 import { Input } from "@/components/ui/input"
-
+import { useRef } from "react"
 import { redirect } from "next/navigation"
+
 export default function Home() {
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
   const handleClick = () => {
+    const storeHandle = localStorage.getItem("CFTrackerID")
+    if (storeHandle) {
+
+    }
+
+    if (inputRef?.current?.value) {
+      localStorage.setItem("CFTrackerID", inputRef?.current?.value)
+
+    }
+
     redirect("/dashboard")
   }
   return (
@@ -22,7 +35,7 @@ export default function Home() {
             >
               Enter your Codeforces handle
             </div>
-            <Input id="handle" placeholder="johndoe" className="w-full text-xl h-12 " />
+            <Input ref={inputRef} type="text" id="handle" placeholder="johndoe" className="w-full text-xl h-12 " />
             <div className="w-full bg-blue-500  text-white p-3 rounded-xl" onClick={handleClick}>Get Started</div>
           </div>
 

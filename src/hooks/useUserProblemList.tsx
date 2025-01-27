@@ -1,7 +1,7 @@
 "use client"
-import { userProblemList } from "../app/types";
+import { userProblemList } from "../types";
 import { useEffect, useState } from "react";
-import { userProblemListResult } from "../app/types";
+import { userProblemListResult } from "../types";
 
 export const useUserProblemList = (handle: string) => {
   const [response, setResponse] = useState<userProblemList | null>(null);

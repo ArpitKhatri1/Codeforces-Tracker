@@ -1,5 +1,5 @@
 import React from 'react'
-
+import UserProfile from './user/user-profile'
 const Navbar = () => {
     return (
         <nav className='w-full h-14 flex justify-between bg-blue-200'>
@@ -11,6 +11,9 @@ const Navbar = () => {
                     Codeforces Tracker
                 </div>
 
+            </div>
+            <div className='ml-auto my-auto mr-20'>
+                <UserProfile />
             </div>
         </nav>
     )
