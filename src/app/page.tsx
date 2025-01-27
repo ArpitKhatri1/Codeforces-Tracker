@@ -11,6 +11,7 @@ export default function Home() {
     if (storeHandle) {
 
     }
+    // this is to incdicate new changes
 
     if (inputRef?.current?.value) {
       localStorage.setItem("CFTrackerID", inputRef?.current?.value)
