@@ -10,6 +10,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
 } from "@/components/ui/dialog"
 
 import { codeforcesTags } from '../../../constants'
@@ -60,18 +61,14 @@ const TagsFilter = () => {
                                     <div>
                                         {tag}
                                     </div>
-                                    {
-                                        tempTags.includes(tag) ? (
-                                            <X size={15} />
-                                        ) : ""
-                                    }
+
                                 </div>
                             </div>
                         ))
                     }
                 </div>
                 <DialogFooter>
-                    <Button onClick={handleChanges}>Save changes</Button>
+                    <DialogClose><div onClick={handleChanges} className='p-3 rounded-lg py-2 bg-black text-white'>Save changes</div></DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

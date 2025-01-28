@@ -1,22 +1,30 @@
-
 import React from 'react'
 type problemCardProps = {
     name: string,
     tags: string[],
-    verdict: string,
+    contestId: number,
+    contestWord: string,
     date: number
 }
 import { cn } from '@/lib/utils'
-const ProblemCard = ({ name, tags, verdict, date }: problemCardProps) => {
-    const submissionDate = new Date(date * 1000)
-    const day = submissionDate.getDate();
-    const month = submissionDate.getMonth() + 1;
-    const year = submissionDate.getFullYear();
-    const formattedData = `${day}/${month}/${year}`
+import { getProblemDate } from '@/utils/getProblemDate'
+import Link from 'next/link'
+import { SquareArrowOutUpRight } from 'lucide-react';
+const ProblemCard = ({ name, tags, contestId, contestWord, date }: problemCardProps) => {
+    const { day, month, year } = getProblemDate(date)
+
     return (
         <div className={cn(`w-full grid grid-cols-10 border-solid border-[1px]  text-black py-3 px-5`)}>
-            <div className='col-span-2'>
-                {name}
+            <div className='col-span-2 flex gap-2 items-center'>
+                <div className=''>
+                    {name}
+                </div>
+                <Link href={`https://codeforces.com/problemset/problem/${contestId}/${contestWord}`} target='/'>
+                    <div className=''>
+                        <SquareArrowOutUpRight size={18} />
+
+                    </div>
+                </Link>
             </div>
             <div className='flex gap-1 col-span-6 ml-auto'>
                 {tags.map((ele, key) => {
@@ -29,7 +37,7 @@ const ProblemCard = ({ name, tags, verdict, date }: problemCardProps) => {
                 })}
             </div>
             <div className='col-span-2 text-center text-muted-foreground mt-1 ml-4'>
-                {formattedData}
+                {`${day}/${month}/${year}`}
             </div>
         </div>
     )

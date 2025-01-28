@@ -1,7 +1,7 @@
 "use client"
 import { useUserProblemList } from '@/hooks/useUserProblemList'
 import React from 'react'
-import ProblemCard from './problem-card'
+import ProblemCard from '../problem-card'
 import { useTagStore } from '@/store/tags-store'
 import { userProblemList, userProblemListResult } from '@/types'
 const ProblemList = () => {
@@ -19,7 +19,6 @@ const ProblemList = () => {
                 }
             })
         }
-
         return filteredResponse
     }
     let filteredResponse: userProblemList | null = { status: "ok", result: [] }
@@ -36,7 +35,7 @@ const ProblemList = () => {
                     filteredResponse?.result.map((ele, key) => {
                         return (
                             <div key={key}>
-                                <ProblemCard name={ele.problem.name} tags={ele.problem.tags} verdict={ele.verdict} date={ele.creationTimeSeconds} />
+                                <ProblemCard name={ele.problem.name} tags={ele.problem.tags} contestId={ele.contestId} contestWord={ele.problem.index} date={ele.creationTimeSeconds} />
                             </div>
                         )
                     })
