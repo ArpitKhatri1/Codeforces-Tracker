@@ -1,14 +1,22 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { devtools } from "zustand/middleware";
 
-type tagStoreType = {
+type TagStoreType = {
   tags: string[];
-  addTags: (tag: string) => void;
+  addTag: (tag: string[]) => void;
 };
 
-const usetagStore = create<tagStoreType>((set) => ({
-  tags: [],
-  addTags: (newTag: string) =>
-    set((state) => ({
-      tags: [...state.tags, newTag],
-    })),
-}));
+export const useTagStore = create<TagStoreType>()(
+  devtools(
+    persist(
+      (set) => ({
+        tags: [],
+        addTag: (newTag: string[]) => set({ tags: [...newTag] }),
+      }),
+      {
+        name: "tags-stored",
+      }
+    )
+  )
+);

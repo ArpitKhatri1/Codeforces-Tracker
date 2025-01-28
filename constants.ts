@@ -1,4 +1,4 @@
-const tags: string[] = [
+export const codeforcesTags: string[] = [
   "2-sat",
   "binary search",
   "bitmasks",

@@ -1,12 +1,21 @@
+"use client"
 import React from 'react'
-import ProblemList from '@/components/problems-list';
+import ProblemList from '@/components/dashboard/problems-list';
+import TagsFilter from '@/components/dashboard/tags-filter';
+import { useTagStore } from '@/store/tags-store';
 const Dashboard = () => {
-
+    const tags = useTagStore((state) => state.tags)
+    console.log(tags)
     return (
         <div className='h-full w-full p-5 flex justify-center'>
             <div className='max-w-[1440px] w-full  h-full'>
-                <div className='text-4xl font-bold my-3 mb-10 '>
-                    Solved Problems
+                <div className='flex items-center mb-10'>
+                    <div className='text-4xl font-bold my-3  '>
+                        Solved Problems
+                    </div>
+                    <div className='ml-auto'>
+                        <TagsFilter />
+                    </div>
                 </div>
                 <div className='grid grid-cols-10 w-full border-[1px] p-1 border-neutral-400 rounded-t-xl  text-center'>
                     <div className='col-span-2 p-2'>
@@ -19,7 +28,6 @@ const Dashboard = () => {
                     <ProblemList />
                 </div>
             </div>
-
 
         </div>
     )
