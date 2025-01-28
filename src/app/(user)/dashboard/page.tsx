@@ -3,6 +3,7 @@ import React from 'react'
 import ProblemList from '@/components/dashboard/problems-list';
 import TagsFilter from '@/components/dashboard/tags-filter';
 import { useTagStore } from '@/store/tags-store';
+import DateFilter from '@/components/dashboard/date-filter';
 const Dashboard = () => {
     const tags = useTagStore((state) => state.tags)
     console.log(tags)
@@ -13,8 +14,13 @@ const Dashboard = () => {
                     <div className='text-4xl font-bold my-3  '>
                         Solved Problems
                     </div>
-                    <div className='ml-auto'>
-                        <TagsFilter />
+                    <div className='flex gap-2 ml-auto items-center'>
+                        <div className='ml-auto'>
+                            <TagsFilter />
+                        </div>
+                        <div className=''>
+                            <DateFilter />
+                        </div>
                     </div>
                 </div>
                 <div className='grid grid-cols-10 w-full border-[1px] p-1 border-neutral-400 rounded-t-xl  text-center'>
