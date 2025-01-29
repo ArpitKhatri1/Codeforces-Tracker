@@ -1,6 +1,7 @@
 import React from 'react'
+import { prisma } from '@/lib/db'
+const PersonalFilter = async () => {
 
-const PersonalFilter = () => {
     return (
         <div>PersonalFilter</div>
     )

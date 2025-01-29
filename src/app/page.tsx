@@ -2,21 +2,20 @@
 import { Input } from "@/components/ui/input"
 import { useRef } from "react"
 import { redirect } from "next/navigation"
+import { createUserProfile } from "@/utils/createUserProfile"
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const handleClick = () => {
-    const storeHandle = localStorage.getItem("CFTrackerID")
-    if (storeHandle) {
-
-    }
-    // this is to incdicate new changes
+  const handleClick = async () => {
 
     if (inputRef?.current?.value) {
-      localStorage.setItem("CFTrackerID", inputRef?.current?.value)
 
+      localStorage.setItem("CFTrackerID", inputRef?.current?.value)
     }
+
+    const session = await createUserProfile(inputRef?.current?.value);
+    console.log(session)
 
     redirect("/dashboard")
   }

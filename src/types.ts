@@ -28,6 +28,7 @@ export type userProblemListResult = {
   timeConsumedMillis: number;
   memoryConsumedBytes: number;
 };
+
 export type userProblemList = {
   status: string;
   result: userProblemListResult[];

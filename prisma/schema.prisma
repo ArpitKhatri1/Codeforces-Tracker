@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,6 +8,118 @@ datasource db {
 }
 
 model User {
-  id   Int    @id
-  name String
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  name         String
+  email        String         @unique
+  codeforcesId String
+  personalTags PersonalTags[]
 }
+
+model PersonalTagsOnProblems {
+  personalTag         PersonalTags      @relation(fields: [personalTagId], references: [id])
+  personalTagId       Int
+  userProblemResult   UserProblemResult @relation(fields: [userProblemResultId], references: [id])
+  userProblemResultId Int
+
+  @@id([personalTagId, userProblemResultId])
+}
+
+// Model for the main submission result
+model UserProblemResult {
+  id                  Int @id
+  contestId           Int
+  creationTimeSeconds Int
+  relativeTimeSeconds Int
+
+  // Problem relationship
+  problem          Problem @relation(fields: [problemContestId, problemIndex], references: [contestId, index])
+  problemContestId Int // Foreign key for Problem
+  problemIndex     String // Foreign key for Problem
+
+  // Author relationship
+  author          Author @relation(fields: [authorContestId], references: [contestId])
+  authorContestId Int // Foreign key for Author
+
+  programmingLanguage String
+  verdict             String // You might want to use an enum here
+  testset             String
+  passedTestCount     Int
+  timeConsumedMillis  Int
+  memoryConsumedBytes Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation to personal tags
+  personalTags PersonalTagsOnProblems[]
+
+  @@unique([contestId, id])
+}
+
+// Model for programming problems
+model Problem {
+  contestId Int      @id
+  index     String
+  name      String
+  type      String
+  points    Float? // Optional field
+  tags      String[] // Prisma supports arrays
+
+  // Relation to submissions
+  submissions UserProblemResult[]
+
+  @@unique([contestId, index])
+}
+
+// Model for submission authors
+model Author {
+  contestId        Int     @id
+  participantType  String
+  ghost            Boolean
+  room             Int
+  startTimeSeconds Int
+
+  // Relation to team members
+  members AuthorMember[]
+
+  // Relation to submissions
+  submissions UserProblemResult[]
+}
+
+// Model for author team members
+model AuthorMember {
+  id       Int    @id @default(autoincrement())
+  handle   String
+  author   Author @relation(fields: [authorId], references: [contestId])
+  authorId Int
+
+  @@unique([authorId, handle])
+}
+
+// Personal tags model with many-to-many relationship
+model PersonalTags {
+  id     Int    @id @default(autoincrement())
+  name   String
+  user   User?  @relation(fields: [userId], references: [id])
+  userId Int?
+
+  // Relation to problems through junction table
+  problems PersonalTagsOnProblems[]
+}
+
+// Junction table for many-to-many relationship between PersonalTags and UserProblemResult
+
+// Enum for possible verdicts (optional, but recommended)
+enum Verdict {
+  OK
+  WRONG_ANSWER
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  RUNTIME_ERROR
+  COMPILATION_ERROR
+  SYSTEM_ERROR
+  OTHER
+}
+
+// User model (assuming you have one, add fields as needed)

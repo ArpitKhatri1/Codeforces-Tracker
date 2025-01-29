@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - /home/Arpit/apps/postgres:/var/lib/postgresql/data # ✅ Use absolute path
+    environment:
+      - POSTGRES_PASSWORD=PASS
+      - POSTGRES_USER=ARPIT
+      - POSTGRES_DB=CFDB

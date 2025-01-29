@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 type problemCardProps = {
     name: string,
@@ -14,7 +15,7 @@ const ProblemCard = ({ name, tags, contestId, contestWord, date }: problemCardPr
     const { day, month, year } = getProblemDate(date)
 
     return (
-        <div className={cn(`w-full grid grid-cols-10 border-solid border-[1px]  text-black py-3 px-5`)}>
+        <div className={cn(`w-full grid grid-cols-10 border-solid border-[1px] bg-emerald-300 hover:bg-emerald-400 text-black py-3 px-5`)}>
             <div className='col-span-2 flex gap-2 items-center'>
                 <div className=''>
                     {name}
