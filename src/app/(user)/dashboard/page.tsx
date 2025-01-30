@@ -3,8 +3,11 @@ import React from 'react'
 import ProblemList from '@/components/dashboard/problems-list';
 import TagsFilter from '@/components/dashboard/tags-filter';
 import DateFilter from '@/components/dashboard/date-filter';
-
-const Dashboard = () => {
+import { createUserProfile } from '@/utils/createUserProfile';
+import { getServerSession } from 'next-auth';
+const Dashboard = async () => {
+    const session = await getServerSession()
+    console.log(session)
 
     return (
         <div className='h-full w-full p-5 flex justify-center'>

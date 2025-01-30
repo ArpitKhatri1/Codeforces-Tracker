@@ -3,19 +3,17 @@ import { Input } from "@/components/ui/input"
 import { useRef } from "react"
 import { redirect } from "next/navigation"
 import { createUserProfile } from "@/utils/createUserProfile"
-
+import axios from 'axios'
 export default function Home() {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const handleClick = async () => {
-
-    if (inputRef?.current?.value) {
-
-      localStorage.setItem("CFTrackerID", inputRef?.current?.value)
+    if (!inputRef.current) {
+      return
     }
-
-    const session = await createUserProfile(inputRef?.current?.value);
-    console.log(session)
+    const handle = inputRef.current.value
+    const response = await axios.post('/api/profile', { handle: handle })
+    console.log(response.data)
 
     redirect("/dashboard")
   }
