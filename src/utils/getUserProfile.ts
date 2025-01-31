@@ -1,19 +1,17 @@
 import { prisma } from "@/lib/db";
-
-export const getUserProfile = async (
-  handle: string | null,
-  user: { name?: string | null; email?: string | null }
-) => {
-  if (!handle || !user?.name || !user?.email) {
+import { getServerSession } from "next-auth";
+export const getUserProfile = async () => {
+  const session = await getServerSession();
+  if (!session) {
     return;
   }
-
-  return await prisma.user.create({
-    data: {
-      name: user.name,
-      email: user.email,
-      codeforcesId: handle,
-      createdAt: new Date(),
+  const userId = await prisma.user.findUnique({
+    where: {
+      email: session.user?.email as string,
     },
   });
+  if (!userId) {
+    return;
+  }
+  return { email: session.user?.email, id: userId.id };
 };

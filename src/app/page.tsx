@@ -2,7 +2,7 @@
 import { Input } from "@/components/ui/input"
 import { useRef } from "react"
 import { redirect } from "next/navigation"
-import { createUserProfile } from "@/utils/createUserProfile"
+
 import axios from 'axios'
 export default function Home() {
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -12,9 +12,8 @@ export default function Home() {
       return
     }
     const handle = inputRef.current.value
-    const response = await axios.post('/api/profile', { handle: handle })
-    console.log(response.data)
-
+    const response = await axios.post('/api/createprofile', { handle: handle })
+    console.log(response.data.userCreated)
     redirect("/dashboard")
   }
   return (
@@ -28,7 +27,6 @@ export default function Home() {
 
           <div className="space-y-4">
             <div
-
               className=" font-medium -mb-1"
             >
               Enter your Codeforces handle

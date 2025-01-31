@@ -7,11 +7,11 @@ export default function UserLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div>
+        <div className="flex flex-col h-full ">
             <div>
                 <Navbar />
             </div>
-            <div>
+            <div className="flex-grow h-full">
                 {children}
             </div>
         </div>

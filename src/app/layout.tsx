@@ -8,15 +8,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en ">
+    <html lang="en min-h-screen min-w-screen">
       <head>
 
       </head>
       <body
-        className={`antialiased w-full h-full`}
+        className={`antialiased h-full w-full `}
       >
 
-        {children}
+        <div className=" h-full">{children}</div>
 
       </body>
     </html>

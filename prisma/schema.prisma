@@ -8,12 +8,12 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  createdAt    DateTime       @default(now())
-  name         String
-  email        String         @unique
-  codeforcesId String
-  personalTags PersonalTags[]
+  id               Int            @id @default(autoincrement())
+  createdAt        DateTime       @default(now())
+  name             String
+  email            String         @unique
+  codeforcesHandle String
+  personalTags     PersonalTags[]
 }
 
 model PersonalTagsOnProblems {
@@ -30,7 +30,6 @@ model UserProblemResult {
   id                  Int @id
   contestId           Int
   creationTimeSeconds Int
-  relativeTimeSeconds Int
 
   // Problem relationship
   problem          Problem @relation(fields: [problemContestId, problemIndex], references: [contestId, index])
@@ -99,10 +98,11 @@ model AuthorMember {
 
 // Personal tags model with many-to-many relationship
 model PersonalTags {
-  id     Int    @id @default(autoincrement())
-  name   String
-  user   User?  @relation(fields: [userId], references: [id])
+  id   Int    @id @default(autoincrement())
+  name String
+
   userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 
   // Relation to problems through junction table
   problems PersonalTagsOnProblems[]
