@@ -9,6 +9,7 @@ export type userProblemListResult = {
     name: string;
     type: string;
     points?: number; // Optional, as it might not always exist
+    rating?: number;
     tags: string[];
   };
   author: {
@@ -54,4 +55,21 @@ export type UserProfile = {
 export type UserProfileResponse = {
   status: string;
   result: UserProfile[];
+};
+
+export type ContestListType = {
+  id: number;
+  name: string;
+  type: string;
+  phase: "BEFORE" | "ACTIVE" | "FINISHED"; // Assuming these are the possible phases
+  frozen: boolean;
+  durationSeconds: number;
+  startTimeSeconds: number;
+  relativeTimeSeconds: number;
+};
+
+export type RevisionListType = {
+  userId: number;
+  problemContestId: number;
+  problemId: number;
 };

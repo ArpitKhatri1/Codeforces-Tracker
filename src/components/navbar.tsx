@@ -9,6 +9,7 @@ const Navbar = () => {
                 <div className='w-5 h-5 bg-black my-auto'>
 
                 </div>
+
                 <Link href={"/dashboard"}>
                     <div className='font-bold text-xl flex items-center justify-center'>
                         Codeforces Tracker
@@ -17,6 +18,11 @@ const Navbar = () => {
 
             </div>
             <div className='ml-auto my-auto mr-20 flex gap-5 items-center font-semibold'>
+                <Link href={"/dashboard"}>
+                    <div className=''>
+                        Home
+                    </div>
+                </Link>
                 <Link href={"/personalfilter"}>
                     <div>
                         Personal Tags

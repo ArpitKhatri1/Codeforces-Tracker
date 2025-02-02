@@ -1,16 +1,20 @@
 "use client";
+import { useState, useEffect } from "react";
 import React from "react";
 import { useUserProblemList } from "@/hooks/useUserProblemList";
 import ProblemCard from "../problem-card";
 import useFilterByTag from "@/hooks/useFilterByTag";
-
+import useContestList from "@/hooks/useContestList";
+import useRevisionList from "@/hooks/useRevisionList";
 const ProblemList = () => {
     const handle = localStorage.getItem("CFTrackerID") as string;
     const { response } = useUserProblemList(handle);
+    const { contestList } = useContestList()
+    const { revisionList } = useRevisionList();
 
     // Filter problems by tag
     const tagFilteredResponse = useFilterByTag(response);
-    const dateFilteredResponse = useFilterByTag(tagFilteredResponse)
+    const dateFilteredResponse = useFilterByTag(response)
 
     return (
         <div>
@@ -19,11 +23,9 @@ const ProblemList = () => {
                     {dateFilteredResponse?.result?.map((ele, key) => (
                         <div key={key}>
                             <ProblemCard
-                                name={ele.problem.name}
-                                tags={ele.problem.tags}
-                                contestId={ele.contestId}
-                                contestWord={ele.problem.index}
-                                date={ele.creationTimeSeconds}
+                                props={ele}
+                                contestList={contestList?.result}
+                                revisionList={revisionList}
                             />
                         </div>
                     ))}

@@ -18,15 +18,15 @@ const PersonalFilter = async () => {
     const personalTagList = tags
 
     return (
-        <div className=' h-full flex overflow-y-hidden  justify-center p-3 relative bg-slate-100'>
-            < div className='   w-full'>
+        <div className=' h-full flex overflow-y-hidden justify-center p-3 relative bg-slate-100'>
+            < div className='max-w-[1440px] w-full '>
 
                 {
                     personalTagList.length !== 0 ? (
                         <div className='flex gap-5 flex-wrap'>
                             {
                                 personalTagList.map((ele) => (
-                                    <Link href={`/personalfilter/${ele.name}`}>
+                                    <Link href={`/personalfilter/${ele.name}`} key={ele.id}>
                                         <div className='w-[20rem] h-[20rem]  rounded-xl overflow-hidden'>
                                             <div className=' w-full h-1/2 bg-gradient-to-b from-blue-100 to-rose-100'></div>
 

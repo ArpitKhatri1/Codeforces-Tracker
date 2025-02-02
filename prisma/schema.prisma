@@ -14,6 +14,19 @@ model User {
   email            String         @unique
   codeforcesHandle String
   personalTags     PersonalTags[]
+
+  // Relation to revision problems
+  revision UserRevisionProblems[]
+}
+
+model UserRevisionProblems {
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  problemContestId Int
+  problemId        Int
+
+  @@id([userId, problemContestId])
 }
 
 model PersonalTagsOnProblems {
@@ -47,11 +60,7 @@ model UserProblemResult {
   timeConsumedMillis  Int
   memoryConsumedBytes Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relation to personal tags
-  personalTags PersonalTagsOnProblems[]
+  PersonalTagsOnProblems PersonalTagsOnProblems[]
 
   @@unique([contestId, id])
 }
@@ -67,6 +76,8 @@ model Problem {
 
   // Relation to submissions
   submissions UserProblemResult[]
+
+  // Relation to revision problems
 
   @@unique([contestId, index])
 }
@@ -108,8 +119,6 @@ model PersonalTags {
   problems PersonalTagsOnProblems[]
 }
 
-// Junction table for many-to-many relationship between PersonalTags and UserProblemResult
-
 // Enum for possible verdicts (optional, but recommended)
 enum Verdict {
   OK
@@ -121,5 +130,3 @@ enum Verdict {
   SYSTEM_ERROR
   OTHER
 }
-
-// User model (assuming you have one, add fields as needed)
