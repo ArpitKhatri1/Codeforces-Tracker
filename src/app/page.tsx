@@ -13,7 +13,7 @@ export default function Home() {
     }
     const handle = inputRef.current.value
     const response = await axios.post('/api/createprofile', { handle: handle })
-    console.log(response.data.userCreated)
+
     redirect("/dashboard")
   }
   return (

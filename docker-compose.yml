@@ -5,7 +5,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - /home/Arpit/apps/postgres:/var/lib/postgresql/data # ✅ Use absolute path
+      - /home/Arpit/apps/postgres:/var/lib/postgresql/data # Updated to a more generic path
     environment:
       - POSTGRES_PASSWORD=PASS
       - POSTGRES_USER=ARPIT

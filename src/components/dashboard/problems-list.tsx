@@ -6,13 +6,14 @@ import ProblemCard from "../problem-card";
 import useFilterByTag from "@/hooks/useFilterByTag";
 import useContestList from "@/hooks/useContestList";
 import useRevisionList from "@/hooks/useRevisionList";
+import usePersonalTags from "@/hooks/usePersonalTags";
 const ProblemList = () => {
     const handle = localStorage.getItem("CFTrackerID") as string;
     const { response } = useUserProblemList(handle);
     const { contestList } = useContestList()
     const { revisionList } = useRevisionList();
+    usePersonalTags()
 
-    // Filter problems by tag
     const tagFilteredResponse = useFilterByTag(response);
     const dateFilteredResponse = useFilterByTag(response)
 

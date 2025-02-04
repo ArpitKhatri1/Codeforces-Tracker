@@ -34,6 +34,9 @@ export async function POST(res: Request) {
       });
     }
   } catch (error) {
-    return new NextResponse("internal server profile error", { status: 500 });
+    console.log(error);
+    return new NextResponse(`internal server profile error ${error}`, {
+      status: 500,
+    });
   }
 }

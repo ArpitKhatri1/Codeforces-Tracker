@@ -10,6 +10,7 @@ import { Star } from 'lucide-react';
 import { Plus } from 'lucide-react'
 import useContestList from '@/hooks/useContestList';
 import RevisionStar from './revision/revision-star-component';
+import AddTagsPlus from './personaltags/add-tags-plus';
 const ProblemCard = ({ props, contestList, revisionList }: { props: userProblemListResult, contestList: ContestListType[] | undefined, revisionList: RevisionListType[] | null }) => {
     // 
 
@@ -84,7 +85,7 @@ const ProblemCard = ({ props, contestList, revisionList }: { props: userProblemL
                     })}
                 </div>
                 <div className='my-auto ml-auto'>
-                    <Plus />
+                    <AddTagsPlus problem={props} />
                 </div>
             </div>
             <div className='col-span-1 text-center text-muted-foreground mt-1 ml-4'>

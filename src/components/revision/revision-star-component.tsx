@@ -1,34 +1,33 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Star } from 'lucide-react'
-import { useState } from 'react'
-import { userProblemListResult } from '@/types'
 import axios from 'axios'
-import { RevisionListType } from '@/types'
+import { userProblemListResult, RevisionListType } from '@/types'
+
 const RevisionStar = ({ problem, revisionList }: { problem: userProblemListResult, revisionList: RevisionListType[] | null }) => {
-    let [filled, setFilled] = useState(false);
-    if (!revisionList) {
-        return;
-    }
-    const filtered = revisionList.filter((ele) => ele.problemId === problem.id)
+    const [filled, setFilled] = useState(false);
+
     useEffect(() => {
-        if (filtered.length > 0) {
-            setFilled(true)
+        if (revisionList) {
+            const isInList = revisionList.some((ele) => ele.problemId === problem.id);
+            setFilled(isInList);
         }
-    }, [])
+    }, [revisionList, problem.id]); // Dependency array ensures re-evaluation when data changes
 
     const handleClick = async () => {
-
-        const response = await axios.post("/api/createrevisionlist", { payload: problem })
-        setFilled(true)
+        try {
+            await axios.post("/api/createrevisionlist", { payload: problem });
+            setFilled(true);
+        } catch (error) {
+            console.error("Error updating revision list", error);
+        }
     }
 
     return (
         <div onClick={handleClick}>
             <Star className='' fill={filled ? "yellow" : "white"} />
         </div>
-    )
+    );
 }
 
-export default RevisionStar
-
+export default RevisionStar;

@@ -22,9 +22,9 @@ const TagCreationModal = () => {
         if (!inputRef || !inputRef.current?.value) {
             return;
         }
-        console.log(inputRef.current.value)
+
         const response = await axios.post("/api/createpersonaltags", { tagName: inputRef.current.value })
-        console.log(response.data.createdTag)
+
     }
 
     return (

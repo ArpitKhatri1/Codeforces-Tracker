@@ -14,7 +14,7 @@ export async function GET() {
         userId: profile.id,
       },
     });
-    console.log(revisionList);
+
     return NextResponse.json({ payload: revisionList });
   } catch (e) {
     return new NextResponse(`erro ${e}`);
