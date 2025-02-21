@@ -4,18 +4,48 @@ import Link from 'next/link'
 import { Plus } from 'lucide-react'
 import { getUserProfile } from '@/utils/getUserProfile'
 import TagCreationModal from '@/components/personaltags/tag-creation-modal'
-const PersonalFilter = async () => {
-    const profile = await getUserProfile();
+import { NextApiRequest } from 'next'
+
+export async function getServerSideProps(req: NextApiRequest) {
+    const cookies = req.headers.cookie;
+    const cookieValue = cookies?.match(/CFTrackerID=([^;]+)/)?.[1];
+
+    if (!cookieValue) {
+        return {
+            notFound: true, // Or return a redirect or error page
+        };
+    }
+
+    // You can now use `cookieValue` to fetch user data, etc.
+    const profile = await getUserProfile(cookieValue); // Example function to fetch profile
     if (!profile) {
-        return;
+        return {
+            notFound: true, // Handle missing profile
+        };
     }
 
     const tags = await prisma.personalTags.findMany({
-        where: {
-            userId: profile.id,
-        },
+        where: { userId: profile.id },
     });
-    const personalTagList = tags
+
+    return {
+
+        personalTagList: tags, // Send tags as props to your component
+
+    };
+}
+
+interface PersonalTagListType {
+
+    name: string;
+    id: number;
+    userId: number | null;
+
+}
+
+const PersonalFilter = async ({ personalTagList }: { personalTagList: PersonalTagListType[] }) => {
+
+
 
     return (
         <div className=' h-full flex overflow-y-hidden justify-center p-3 relative bg-slate-100'>

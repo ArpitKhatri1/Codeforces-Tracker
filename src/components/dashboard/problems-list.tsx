@@ -7,12 +7,14 @@ import useFilterByTag from "@/hooks/useFilterByTag";
 import useContestList from "@/hooks/useContestList";
 import useRevisionList from "@/hooks/useRevisionList";
 import usePersonalTags from "@/hooks/usePersonalTags";
+import useProblemTags from "@/hooks/useProblemTag";
 const ProblemList = () => {
     const handle = localStorage.getItem("CFTrackerID") as string;
     const { response } = useUserProblemList(handle);
     const { contestList } = useContestList()
     const { revisionList } = useRevisionList();
     usePersonalTags()
+    useProblemTags()
 
     const tagFilteredResponse = useFilterByTag(response);
     const dateFilteredResponse = useFilterByTag(response)

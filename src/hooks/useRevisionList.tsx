@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ContestListType } from '@/types'
 
 const useRevisionList = () => {
+    const handle = localStorage.getItem("CFTrackerId")
     const [revisionList, setRevisionList] = useState(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
@@ -11,7 +12,7 @@ const useRevisionList = () => {
     useEffect(() => {
         const getRevisionList = async () => {
             try {
-                const response = await axios.get("/api/getrevisionlist")
+                const response = await axios.get("/api/revision/getrevisionlist")
                 setRevisionList(response.data.payload)
                 setLoading(false)
             } catch (e: any) {

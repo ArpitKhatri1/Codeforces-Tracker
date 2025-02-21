@@ -1,17 +1,19 @@
 import { prisma } from "@/lib/db";
 import { getServerSession } from "next-auth";
-export const getUserProfile = async () => {
+export const getUserProfile = async (handle: string) => {
   const session = await getServerSession();
   if (!session) {
     return;
   }
+
   const userId = await prisma.user.findUnique({
     where: {
-      email: session.user?.email as string,
+      name: session.user?.name as string,
+      codeforcesHandle: handle,
     },
   });
   if (!userId) {
     return;
   }
-  return { email: session.user?.email, id: userId.id };
+  return { handle: userId.codeforcesHandle, id: userId.id };
 };

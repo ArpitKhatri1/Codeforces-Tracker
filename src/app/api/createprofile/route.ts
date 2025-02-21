@@ -2,17 +2,32 @@ import { prisma } from "@/lib/db";
 import { getUserProfile } from "@/utils/getUserProfile";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+
 export async function POST(res: Request) {
   try {
     const session = await getServerSession();
+    console.log(session);
     const { handle } = await res.json();
-    const profile = await getUserProfile();
-    if (!handle || !profile || !session) {
+    console.log("The handle i am sending before is", handle);
+    const profile = await getUserProfile(handle);
+    console.log("hi");
+    console.log(
+      "profile is " + profile,
+      "session is " + session,
+      "handle is" + handle
+    );
+
+    if (!handle || !session) {
       return new NextResponse("handle or profile is req", { status: 400 });
+    }
+
+    if (!handle) {
+      throw new Error("Handle is required");
     }
     const userExists = await prisma.user.findUnique({
       where: {
-        email: profile.email as string,
+        name: session.user?.name as string,
+        codeforcesHandle: handle,
       },
     });
     if (userExists) {
@@ -23,7 +38,6 @@ export async function POST(res: Request) {
       const userCreated = await prisma.user.create({
         data: {
           name: session.user?.name as string,
-          email: session.user?.email as string,
           createdAt: new Date(),
           codeforcesHandle: handle,
         },
