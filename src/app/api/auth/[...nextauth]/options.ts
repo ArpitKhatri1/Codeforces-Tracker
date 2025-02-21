@@ -1,6 +1,4 @@
 import GithubProvider from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
-import GoogleProvider from "next-auth/providers/google";
 import { JWT } from "next-auth/jwt";
 import { Session } from "next-auth";
 
@@ -21,7 +19,11 @@ export const options = {
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-      authorization: { params: { scope: "read:user user:email" } },
+      authorization: {
+        params: {
+          scope: "read:user user:email",
+        },
+      },
     }),
   ],
 };

@@ -16,7 +16,7 @@ export async function POST(res: Request) {
       "session is " + session,
       "handle is" + handle
     );
-
+    console.log(JSON.stringify(session));
     if (!handle || !session) {
       return new NextResponse("handle or profile is req", { status: 400 });
     }

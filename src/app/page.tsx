@@ -13,7 +13,7 @@ export default function Home() {
     }
     const handle = inputRef.current.value
     console.log(handle)
-    document.cookie = `CFTrackerID=${handle}; path=/;`;
+
 
     const response = await axios.post('/api/createprofile', { handle: handle })
 

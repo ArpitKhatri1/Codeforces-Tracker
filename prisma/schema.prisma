@@ -44,6 +44,7 @@ model User {
   name      String
 
   codeforcesHandle String @unique
+  email            String @unique
 
   personalTags   PersonalTags[]
   revision       UserRevisionProblems[]
