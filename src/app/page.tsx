@@ -6,14 +6,16 @@ import { redirect } from "next/navigation"
 import axios from 'axios'
 export default function Home() {
   const inputRef = useRef<HTMLInputElement | null>(null)
-
+  if (localStorage.getItem("CFTrackerID")) {
+    redirect("/dashboard")
+  }
   const handleClick = async () => {
+
     if (!inputRef.current) {
       return
     }
     const handle = inputRef.current.value
-    console.log(handle)
-
+    localStorage.setItem("CFTrackerID", handle)
 
     const response = await axios.post('/api/createprofile', { handle: handle })
 

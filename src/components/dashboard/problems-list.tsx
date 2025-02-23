@@ -10,6 +10,7 @@ import usePersonalTags from "@/hooks/usePersonalTags";
 import useProblemTags from "@/hooks/useProblemTag";
 const ProblemList = () => {
     const handle = localStorage.getItem("CFTrackerID") as string;
+    console.log("The handle here is ", handle)
     const { response } = useUserProblemList(handle);
     const { contestList } = useContestList()
     const { revisionList } = useRevisionList();

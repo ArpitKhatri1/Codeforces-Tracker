@@ -15,22 +15,26 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import axios from 'axios'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 const TagCreationModal = () => {
+    const router = useRouter()
+    let [openState, setOpenState] = useState(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
 
     const createTag = async () => {
         if (!inputRef || !inputRef.current?.value) {
             return;
         }
-
-        const response = await axios.post("/api/createpersonaltags", { tagName: inputRef.current.value })
-
+        const response = await axios.post("/api/maintags/createpersonaltags", { tagName: inputRef.current.value })
+        setOpenState(false)
+        router.refresh()
     }
 
     return (
 
-        <Dialog>
-            <DialogTrigger asChild>
+        <Dialog open={openState}>
+            <DialogTrigger onClick={() => { setOpenState(true) }}>
                 <div className='bg-red-500 rounded-full text-white h-20 w-20 absolute bottom-10 right-10 flex justify-center items-center'>
                     <Plus className='w-14 h-14' />
                 </div>

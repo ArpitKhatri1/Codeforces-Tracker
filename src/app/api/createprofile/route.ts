@@ -6,16 +6,11 @@ import { getServerSession } from "next-auth";
 export async function POST(res: Request) {
   try {
     const session = await getServerSession();
-    console.log(session);
+
     const { handle } = await res.json();
-    console.log("The handle i am sending before is", handle);
-    const profile = await getUserProfile(handle);
-    console.log("hi");
-    console.log(
-      "profile is " + profile,
-      "session is " + session,
-      "handle is" + handle
-    );
+
+    const profile = await getUserProfile();
+
     console.log(JSON.stringify(session));
     if (!handle || !session) {
       return new NextResponse("handle or profile is req", { status: 400 });
@@ -40,6 +35,7 @@ export async function POST(res: Request) {
           name: session.user?.name as string,
           createdAt: new Date(),
           codeforcesHandle: handle,
+          email: session.user?.email as string,
         },
       });
 

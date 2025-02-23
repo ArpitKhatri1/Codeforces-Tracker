@@ -30,7 +30,7 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
         if (selectedTags.length === 0) return
 
         try {
-            await axios.post("/api/addproblemtag", {
+            await axios.post("/api/problemtag/addproblemtag", {
                 problemId: problem.id,
                 tagNames: selectedTags, // Sending the whole list
             })
