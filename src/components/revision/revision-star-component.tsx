@@ -16,7 +16,7 @@ const RevisionStar = ({ problem, revisionList }: { problem: userProblemListResul
 
     const handleClick = async () => {
         try {
-            await axios.post("/api/createrevisionlist", { payload: problem });
+            await axios.post("/api/revision", { payload: problem });
             setFilled(true);
         } catch (error) {
             console.error("Error updating revision list", error);
@@ -31,3 +31,4 @@ const RevisionStar = ({ problem, revisionList }: { problem: userProblemListResul
 }
 
 export default RevisionStar;
+

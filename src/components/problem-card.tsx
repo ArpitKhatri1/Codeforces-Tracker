@@ -11,7 +11,7 @@ import { Plus } from 'lucide-react'
 import useContestList from '@/hooks/useContestList';
 import RevisionStar from './revision/revision-star-component';
 import AddTagsPlus from './personaltags/add-tags-plus';
-const ProblemCard = ({ props, contestList, revisionList }: { props: userProblemListResult, contestList: ContestListType[] | undefined, revisionList: RevisionListType[] | null }) => {
+const ProblemCard = ({ props, contestList, revisionList }: { props: userProblemListResult, contestList?: ContestListType[] | undefined, revisionList: RevisionListType[] | null }) => {
     // 
 
     const div = contestList?.filter((ele) => (ele.id === props.contestId))

@@ -9,7 +9,7 @@ const useProblemTags = () => {
     useEffect(() => {
         const handleProblemTags = async () => {
             try {
-                const response = await axios.get(`/api/problemtag/getproblemtag`)
+                const response = await axios.get(`/api/problemtag/`)
                 const data = await response.data
 
             } catch {

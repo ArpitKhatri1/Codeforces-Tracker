@@ -10,7 +10,7 @@ const usePersonalTags = () => {
     useEffect(() => {
         const handlePersonalTags = async () => {
             try {
-                const response = await axios.get(`/api/maintags/getpersonaltags`)
+                const response = await axios.get(`/api/maintags`)
                 const data = await response.data
                 setPersonalTag(data.tags)
             } catch {

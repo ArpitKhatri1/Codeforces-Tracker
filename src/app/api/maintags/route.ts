@@ -32,3 +32,18 @@ export async function POST(req: Request) {
     createdTag: createdTag,
   });
 }
+
+export async function GET() {
+  const profile = await getUserProfile();
+  if (!profile) {
+    return new NextResponse("profile not found", { status: 404 });
+  }
+
+  const tags = await prisma.personalTags.findMany({
+    where: {
+      userId: profile.id,
+    },
+  });
+
+  return NextResponse.json({ tags: tags });
+}
