@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db'
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
 import { getUserProfile } from '@/utils/getUserProfile'
-import TagCreationModal from '@/components/personaltags/tag-creation-modal'
+import TagCreationModal from '@/components/problemtags/tag-creation-modal'
 const PersonalFilter = async () => {
     const profile = await getUserProfile();
     if (!profile) {

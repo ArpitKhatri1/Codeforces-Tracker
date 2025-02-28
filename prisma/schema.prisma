@@ -58,5 +58,5 @@ model UserRevisionProblems {
   problemContestId Int
   problemId        Int
 
-  @@id([userId, problemContestId])
+  @@id([userId, problemId])
 }

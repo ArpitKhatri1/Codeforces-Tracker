@@ -12,12 +12,23 @@ const RevisionStar = ({ problem, revisionList }: { problem: userProblemListResul
             const isInList = revisionList.some((ele) => ele.problemId === problem.id);
             setFilled(isInList);
         }
-    }, [revisionList, problem.id]); // Dependency array ensures re-evaluation when data changes
+    }, [revisionList]);
 
     const handleClick = async () => {
         try {
-            await axios.post("/api/revision", { payload: problem });
-            setFilled(true);
+            if (!filled) {
+
+                await axios.post("/api/revision", { payload: problem });
+                setFilled(true);
+            } else {
+                const response = await axios.delete("/api/revision", {
+                    data: {
+                        payload: problem
+                    }
+                })
+                console.log(response)
+                setFilled(false)
+            }
         } catch (error) {
             console.error("Error updating revision list", error);
         }

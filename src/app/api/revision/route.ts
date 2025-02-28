@@ -54,3 +54,37 @@ export async function GET(req: Request) {
     return new NextResponse(`erro ${e}`);
   }
 }
+
+export async function DELETE(req: Request) {
+  const profile = await getUserProfile();
+  if (!profile) {
+    return new NextResponse("Can't delete with no profile", {
+      status: 400,
+    });
+  }
+  try {
+    const body = await req.json();
+    const { payload } = body;
+    const problem: userProblemListResult = payload;
+
+    const response = await prisma.userRevisionProblems.delete({
+      where: {
+        userId_problemId: {
+          userId: profile.id,
+          problemId: problem.id,
+        },
+      },
+    });
+
+    return NextResponse.json({
+      msg: "Deleted Successfully",
+
+      status: 200,
+    });
+  } catch (e) {
+    console.log(e);
+    return new NextResponse(`error in deleting revision ${JSON.stringify(e)}`, {
+      status: 500,
+    });
+  }
+}
