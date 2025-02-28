@@ -12,7 +12,13 @@ import { Plus } from 'lucide-react'
 import useContestList from '@/hooks/useContestList';
 import RevisionStar from './revision/revision-star-component';
 import AddTagsPlus from './problemtags/add-tags-plus';
-const ProblemCard = ({ props, contestList, revisionList }: { props: userProblemListResult, contestList?: ContestListType[] | undefined, revisionList: RevisionListType[] | null }) => {
+import ProblemTagComponent from './problemtags/problem-tag-component';
+type ProblemCardProps = {
+    props: userProblemListResult,
+    contestList?: ContestListType[] | undefined,
+    revisionList: RevisionListType[] | null
+}
+const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => {
     // 
     const div = contestList?.filter((ele) => (ele.id === props.contestId))
     let numberList: number[] = []
@@ -72,22 +78,11 @@ const ProblemCard = ({ props, contestList, revisionList }: { props: userProblemL
                 }
 
             </div>
-            <div className='flex  col-span-3 gap-3 text-md w-full mr-auto overflow-x-hidden'>
 
-                <div className='flex flex-wrap gap-3'>
-                    {props.problem.tags.map((ele, key) => {
-                        return (
-                            <div key={key} className='rounded-xl bg-[#F2F5F1] p-3 py-1 h-fit'>
-                                {ele}
-                            </div>
-                        )
+            <ProblemTagComponent problem={props} />
 
-                    })}
-                </div>
-                <div className='my-auto ml-auto'>
-                    <AddTagsPlus problem={props} />
-                </div>
-            </div>
+
+
             <div className='col-span-1 text-center text-muted-foreground mt-1 ml-4'>
                 {`${day}/${month}/${year}`}
             </div>

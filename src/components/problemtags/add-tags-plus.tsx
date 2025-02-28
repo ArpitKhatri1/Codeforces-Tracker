@@ -15,24 +15,29 @@ import crypto from 'crypto'
 const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
     const tags = usePersonalTagStore((store) => store.tags)
 
-    // Store selected tags for the problem
     const [selectedTags, setSelectedTags] = useState<string[]>([])
 
-    // Toggle selection of tags
+
+
     const toggleTag = (tagName: string) => {
-        setSelectedTags((prev) =>
-            prev.includes(tagName) ? prev.filter((tag) => tag !== tagName) : [...prev, tagName]
-        )
+        if (selectedTags.includes(tagName)) {
+            setSelectedTags((prev) => {
+                return prev.filter((tag) => tag !== tagName)
+            })
+        } else {
+            setSelectedTags((prev) => {
+                return [...prev, tagName]
+            })
+        }
     }
 
-    // Submit selected tags for the problem
     const submitTags = async () => {
         if (selectedTags.length === 0) return
 
         try {
-            await axios.post("/api/problemtag/addproblemtag", {
+            await axios.post("/api/problemtag", {
                 problemId: problem.id,
-                tagNames: selectedTags, // Sending the whole list
+                tagNames: selectedTags,
             })
         } catch (error) {
             console.error("Error adding tags:", error)

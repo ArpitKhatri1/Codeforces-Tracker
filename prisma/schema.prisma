@@ -11,19 +11,13 @@ model Problem {
   id        Int      @id @default(autoincrement())
   contestId Int
   createdAt DateTime @default(now())
-
-  // Many-to-many relationship with PersonalTags through junction table
-  taggedByUsers PersonalTagsOnProblems[]
 }
 
 model PersonalTags {
-  id   Int    @id @default(autoincrement())
-  name String
-
+  id     Int    @id @default(autoincrement())
+  name   String
   userId Int?
-  user   User? @relation(fields: [userId], references: [id])
-
-  taggedProblems PersonalTagsOnProblems[]
+  user   User?  @relation(fields: [userId], references: [id])
 }
 
 model PersonalTagsOnProblems {
@@ -31,11 +25,11 @@ model PersonalTagsOnProblems {
   problemId Int
   tagId     Int
 
-  user    User         @relation(fields: [userId], references: [id])
-  problem Problem      @relation(fields: [problemId], references: [id])
-  tag     PersonalTags @relation(fields: [tagId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
-  @@id([userId, problemId, tagId]) // Composite primary key
+  tags String[]
+
+  @@id([userId, problemId, tagId])
 }
 
 model User {
