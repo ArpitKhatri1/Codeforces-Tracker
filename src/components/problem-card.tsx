@@ -19,7 +19,7 @@ type ProblemCardProps = {
     revisionList: RevisionListType[] | null
 }
 const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => {
-    // 
+
     const div = contestList?.filter((ele) => (ele.id === props.contestId))
     let numberList: number[] = []
     if (div && div[0]) {
@@ -80,8 +80,6 @@ const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => 
             </div>
 
             <ProblemTagComponent problem={props} />
-
-
 
             <div className='col-span-1 text-center text-muted-foreground mt-1 ml-4'>
                 {`${day}/${month}/${year}`}

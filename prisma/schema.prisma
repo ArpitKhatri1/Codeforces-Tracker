@@ -23,13 +23,10 @@ model PersonalTags {
 model PersonalTagsOnProblems {
   userId    Int
   problemId Int
-  tagId     Int
-
-  user User @relation(fields: [userId], references: [id])
 
   tags String[]
 
-  @@id([userId, problemId, tagId])
+  @@id([userId, problemId])
 }
 
 model User {
@@ -40,9 +37,8 @@ model User {
   codeforcesHandle String @unique
   email            String @unique
 
-  personalTags   PersonalTags[]
-  revision       UserRevisionProblems[]
-  taggedProblems PersonalTagsOnProblems[]
+  personalTags PersonalTags[]
+  revision     UserRevisionProblems[]
 }
 
 model UserRevisionProblems {

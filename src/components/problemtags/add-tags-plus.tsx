@@ -11,13 +11,19 @@ import {
 import { usePersonalTagStore } from '@/store/personal-tag-store'
 import { userProblemListResult } from '@/types'
 import crypto from 'crypto'
-
+import { useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import { useproblemTagStore } from '@/store/problem-store'
 const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
+    const router = useRouter()
+    let [openState, setOpenState] = useState(false)
+    const state = useRef<number>(0);
+    const tagData = useproblemTagStore((store) => store.problemTags)
+    const filteredTagData = tagData.filter((data) => data.problemId === problem.id)
+    console.log(filteredTagData)
     const tags = usePersonalTagStore((store) => store.tags)
 
-    const [selectedTags, setSelectedTags] = useState<string[]>([])
-
-
+    const [selectedTags, setSelectedTags] = useState<string[]>(filteredTagData.length > 0 ? filteredTagData[0].tags : [])
 
     const toggleTag = (tagName: string) => {
         if (selectedTags.includes(tagName)) {
@@ -32,22 +38,32 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
     }
 
     const submitTags = async () => {
-        if (selectedTags.length === 0) return
-
         try {
-            await axios.post("/api/problemtag", {
-                problemId: problem.id,
-                tagNames: selectedTags,
-            })
+            if (state.current === 0) {
+                await axios.post("/api/problemtag", {
+                    problemId: problem.id,
+                    tagNames: selectedTags,
+                })
+                state.current += 1;
+                console.log(state.current)
+            } else {
+                await axios.patch("/api/problemtag", {
+                    problemId: problem.id,
+                    tagNames: selectedTags,
+                })
+            }
+            setOpenState(false)
+            router.refresh()
+
         } catch (error) {
             console.error("Error adding tags:", error)
         }
     }
 
     return (
-        <Popover>
+        <Popover open={openState}>
             <PopoverTrigger asChild>
-                <div className="cursor-pointer"><Plus /></div>
+                <div className="cursor-pointer" onClick={() => { setOpenState(true) }}><Plus /></div>
             </PopoverTrigger>
             <PopoverContent className="w-80">
                 <div className="grid gap-4">
