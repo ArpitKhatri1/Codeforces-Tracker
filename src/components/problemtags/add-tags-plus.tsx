@@ -61,7 +61,7 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
     }
 
     return (
-        <Popover open={openState}>
+        <Popover open={openState} onOpenChange={setOpenState}>
             <PopoverTrigger asChild>
                 <div className="cursor-pointer" onClick={() => { setOpenState(true) }}><Plus /></div>
             </PopoverTrigger>

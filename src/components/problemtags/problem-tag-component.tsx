@@ -25,7 +25,7 @@ const ProblemTagComponent = ({ problem }: ProblemTagComponentProps) => {
                                 {
                                     ele.tags.map((tags, key) => {
                                         return (
-                                            <div key={key} className='rounded-xl bg-[#2ff6f6] p-3 py-1 h-fit'>
+                                            <div key={key} className='rounded-xl bg-gradient-to-r from-red-400 to-pink-400 p-3 py-1 h-fit'>
                                                 {tags}
                                             </div>
                                         )
