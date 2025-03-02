@@ -21,7 +21,7 @@ const ProblemTagComponent = ({ problem }: ProblemTagComponentProps) => {
 
                         return (
 
-                            <div key={key} className='flex gap-1'>
+                            <div key={key} className='flex gap-1 flex-wrap '>
                                 {
                                     ele.tags.map((tags, key) => {
                                         return (

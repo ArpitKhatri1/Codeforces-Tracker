@@ -74,3 +74,29 @@ export async function PATCH(req: Request) {
     return new NextResponse("error updating tags", { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const profile = await getUserProfile();
+    if (!profile) {
+      return new NextResponse("unauthoriszed", { status: 400 });
+    }
+
+    const { problemId } = await req.json();
+    const problemIdTypeCasted: number = problemId;
+
+    const response = await prisma.personalTagsOnProblems.deleteMany({
+      where: {
+        userId: profile.id,
+        problemId: problemIdTypeCasted,
+      },
+    });
+
+    return NextResponse.json({
+      msg: "Deletion Successfull",
+      payload: response,
+    });
+  } catch {
+    return new NextResponse("error deleting tags", { status: 500 });
+  }
+}

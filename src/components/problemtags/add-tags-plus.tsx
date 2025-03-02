@@ -25,6 +25,10 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
 
     const [selectedTags, setSelectedTags] = useState<string[]>(filteredTagData.length > 0 ? filteredTagData[0].tags : [])
 
+    if (filteredTagData.length > 0) {
+        state.current++;
+    }
+
     const toggleTag = (tagName: string) => {
         if (selectedTags.includes(tagName)) {
             setSelectedTags((prev) => {
@@ -39,24 +43,35 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
 
     const submitTags = async () => {
         try {
-            if (state.current === 0) {
-                await axios.post("/api/problemtag", {
-                    problemId: problem.id,
-                    tagNames: selectedTags,
+            if (selectedTags.length === 0) {
+                await axios.delete("/api/problemtag", {
+                    data: {
+                        problemId: problem.id
+                    }
                 })
-                state.current += 1;
-                console.log(state.current)
             } else {
-                await axios.patch("/api/problemtag", {
-                    problemId: problem.id,
-                    tagNames: selectedTags,
-                })
+                if (state.current === 0) {
+                    await axios.post("/api/problemtag", {
+                        problemId: problem.id,
+                        tagNames: selectedTags,
+                    })
+                    state.current += 1;
+                    console.log(state.current)
+                } else {
+                    await axios.patch("/api/problemtag", {
+                        problemId: problem.id,
+                        tagNames: selectedTags,
+                    })
+                }
             }
+
             setOpenState(false)
             router.refresh()
 
         } catch (error) {
             console.error("Error adding tags:", error)
+        } finally {
+            router.refresh()
         }
     }
 
@@ -85,7 +100,7 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
                             </div>
                         ))}
                     </div>
-                    <Button onClick={submitTags} disabled={selectedTags.length === 0}>
+                    <Button onClick={submitTags} >
                         Save Tags
                     </Button>
                 </div>

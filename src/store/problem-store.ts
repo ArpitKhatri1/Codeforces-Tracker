@@ -13,6 +13,7 @@ type ProblemTagStoreType = {
 };
 
 export const useproblemTagStore = create<ProblemTagStoreType>()(
+  // takes a callback function with set parameter and return type of store with iniitialistation and a functions
   devtools(
     persist(
       (set) => ({
