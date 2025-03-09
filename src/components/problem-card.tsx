@@ -13,6 +13,7 @@ import useContestList from '@/hooks/useContestList';
 import RevisionStar from './revision/revision-star-component';
 import AddTagsPlus from './problemtags/add-tags-plus';
 import ProblemTagComponent from './problemtags/problem-tag-component';
+import NotePad from './notepad/notepad';
 type ProblemCardProps = {
     props: userProblemListResult,
     contestList?: ContestListType[] | undefined,
@@ -65,7 +66,7 @@ const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => 
 
                 </div>
             </div>
-            <div className='col-span-2 text-center flex gap-5 items-center justify-center'>
+            <div className='col-span-1 text-center flex gap-5 items-center justify-center'>
 
                 {
                     props.problem.rating ? (
@@ -86,6 +87,9 @@ const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => 
             </div>
             <div className='col-span-1 flex gap-3 justify-center items-center '>
                 <RevisionStar problem={props} revisionList={revisionList} />
+            </div>
+            <div className="col-span-1 flex gap-3 justify-center items-center">
+                <NotePad />
             </div>
         </div>
     )

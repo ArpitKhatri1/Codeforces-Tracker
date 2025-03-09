@@ -28,12 +28,13 @@ const Dashboard = async () => {
                         <div className='col-span-3 p-2'>
                             Problem
                         </div>
-                        <div className='col-span-2 p-2'>
+                        <div className='col-span-1 p-2'>
                             Division
                         </div>
                         <div className='col-span-3 p-2 '>Tags</div>
                         <div className='col-span-1 p-2'>Solved on</div>
                         <div className='col-span-1 p-2'>Actions</div>
+                        <div className='col-span-1 p-2'>Snippets</div>
                     </div>
                     <div className='w-full '>
                         <ProblemList />
