@@ -7,7 +7,7 @@ import axios from 'axios'
 export default function Home() {
   const inputRef = useRef<HTMLInputElement | null>(null)
   if (localStorage.getItem("CFTrackerID")) {
-    redirect("/dashboard")
+    // redirect("/dashboard")
   }
   const handleClick = async () => {
 

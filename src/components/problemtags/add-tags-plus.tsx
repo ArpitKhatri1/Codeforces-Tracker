@@ -58,10 +58,10 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
                     state.current += 1;
                     console.log(state.current)
                 } else {
-                    await axios.patch("/api/problemtag", {
-                        problemId: problem.id,
-                        tagNames: selectedTags,
-                    })
+                    // await axios.patch("/api/problemtag", {
+                    //     problemId: problem.id,
+                    //     tagNames: selectedTags,
+                    // })
                 }
             }
 
@@ -93,7 +93,8 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
                             <div
                                 key={ele.id}
                                 className={`px-3 rounded-lg py-1 cursor-pointer 
-                                    ${selectedTags.includes(ele.name) ? "bg-rose-500 text-white" : "bg-rose-100"}`}
+                                   `}
+                                //     ${selectedTags.includes(ele.name) ? "bg-rose-500 text-white" : "bg-rose-100"}
                                 onClick={() => toggleTag(ele.name)}
                             >
                                 {ele.name}

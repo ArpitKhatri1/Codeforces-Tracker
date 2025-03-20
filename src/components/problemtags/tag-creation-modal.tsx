@@ -26,7 +26,7 @@ const TagCreationModal = () => {
         if (!inputRef || !inputRef.current?.value) {
             return;
         }
-        const response = await axios.post("/api/maintags", { tagName: inputRef.current.value })
+        const response = await axios.post("/api/personaltags", { tagName: inputRef.current.value })
         setOpenState(false)
         router.refresh()
     }

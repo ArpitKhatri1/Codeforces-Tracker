@@ -8,6 +8,7 @@ import useContestList from "@/hooks/useContestList";
 import useRevisionList from "@/hooks/useRevisionList";
 import usePersonalTags from "@/hooks/usePersonalTags";
 import useProblemTags from "@/hooks/useProblemTag";
+import axios from 'axios'
 const ProblemList = () => {
     const handle = localStorage.getItem("CFTrackerID") as string;
     const { response } = useUserProblemList(handle);
@@ -18,6 +19,17 @@ const ProblemList = () => {
 
     const tagFilteredResponse = useFilterByTag(response);
     const dateFilteredResponse = useFilterByTag(response)
+    useEffect(() => {
+        const postData = async () => {
+            if (!response) {
+                return
+            }
+
+            const data = await axios.post("/api/solvedproblem", response)
+            console.log(data)
+        }
+        postData()
+    }, [response])
 
     return (
         <div>

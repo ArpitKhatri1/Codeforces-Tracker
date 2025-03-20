@@ -8,9 +8,14 @@ export async function GET(req: Request) {
   if (!profile) {
     return new NextResponse("unauthoriszed", { status: 400 });
   }
-  const response = await prisma.personalTagsOnProblems.findMany({
+  const response = await prisma.problemTags.findMany({
     where: {
-      userId: profile.id,
+      tag: {
+        userId: profile.id,
+      },
+    },
+    include: {
+      tag: true,
     },
   });
 
@@ -22,19 +27,34 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const profile = await getUserProfile();
-    const { problemId, tagNames } = await req.json();
+    const { problemId, tagNames }: { problemId: number; tagNames: string[] } =
+      await req.json();
     console.log(problemId, tagNames);
 
     if (!profile) {
       return new NextResponse("unauthorized", { status: 401 });
     }
 
-    const response = await prisma.personalTagsOnProblems.create({
-      data: {
+    const existingTags = await prisma.personalTags.findMany({
+      where: {
         userId: profile.id,
-        problemId: problemId,
-        tags: [...tagNames],
+        name: { in: tagNames },
       },
+    });
+
+    const existingTagMap = new Map(
+      existingTags.map((tag) => [tag.name, tag.id])
+    );
+    console.log(existingTagMap);
+
+    let personalTagData = [...existingTagMap.values()].map((tagId) => ({
+      problemId,
+      tagId,
+    }));
+
+    const response = await prisma.problemTags.createMany({
+      data: personalTagData,
+      skipDuplicates: true,
     });
 
     return NextResponse.json({
@@ -47,33 +67,33 @@ export async function POST(req: Request) {
   }
 }
 
-export async function PATCH(req: Request) {
-  try {
-    const profile = await getUserProfile();
-    const { problemId, tagNames } = await req.json();
-    if (!profile) {
-      return new NextResponse("unauthoriszed", { status: 400 });
-    }
-    const response = await prisma.personalTagsOnProblems.update({
-      where: {
-        userId_problemId: {
-          userId: profile.id,
-          problemId: problemId,
-        },
-      },
-      data: {
-        tags: [...tagNames],
-      },
-    });
+// export async function PATCH(req: Request) {
+//   try {
+//     const profile = await getUserProfile();
+//     const { problemId, tagNames } = await req.json();
+//     if (!profile) {
+//       return new NextResponse("unauthoriszed", { status: 400 });
+//     }
+//     const response = await prisma.problemTags.update({
+//       where: {
+//         userId_problemId: {
+//           userId: profile.id,
+//           problemId: problemId,
+//         },
+//       },
+//       data: {
+//         tags: [...tagNames],
+//       },
+//     });
 
-    return NextResponse.json({
-      msg: "Tags updated",
-      payload: response,
-    });
-  } catch {
-    return new NextResponse("error updating tags", { status: 500 });
-  }
-}
+//     return NextResponse.json({
+//       msg: "Tags updated",
+//       payload: response,
+//     });
+//   } catch {
+//     return new NextResponse("error updating tags", { status: 500 });
+//   }
+// }
 
 export async function DELETE(req: Request) {
   try {
@@ -82,13 +102,11 @@ export async function DELETE(req: Request) {
       return new NextResponse("unauthoriszed", { status: 400 });
     }
 
-    const { problemId } = await req.json();
-    const problemIdTypeCasted: number = problemId;
+    const { problemId }: { problemId: number } = await req.json();
 
-    const response = await prisma.personalTagsOnProblems.deleteMany({
+    const response = await prisma.problemTags.deleteMany({
       where: {
-        userId: profile.id,
-        problemId: problemIdTypeCasted,
+        problemId: problemId,
       },
     });
 

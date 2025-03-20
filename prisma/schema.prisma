@@ -8,43 +8,48 @@ datasource db {
 }
 
 model Problem {
-  id        Int      @id @default(autoincrement())
-  contestId Int
-  createdAt DateTime @default(now())
+  id Int @id @unique
+
+  ProblemTags ProblemTags[]
+  User        User?         @relation(fields: [userId], references: [id])
+  userId      Int?
 }
 
 model PersonalTags {
-  id     Int    @id @default(autoincrement())
-  name   String
-  userId Int?
-  user   User?  @relation(fields: [userId], references: [id])
+  id     Int    @id @unique @default(autoincrement())
+  name   String @unique
+  userId Int
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  ProblemTags ProblemTags[]
+
+  @@unique([userId, name])
 }
 
-model PersonalTagsOnProblems {
-  userId    Int
+model ProblemTags {
   problemId Int
+  problem   Problem      @relation(fields: [problemId], references: [id])
+  tagId     Int
+  tag       PersonalTags @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
-  tags String[]
-
-  @@id([userId, problemId])
+  @@unique([problemId, tagId])
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  name      String
-
-  codeforcesHandle String @unique
-  email            String @unique
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  name             String
+  codeforcesHandle String   @unique
+  email            String   @unique
 
   personalTags PersonalTags[]
   revision     UserRevisionProblems[]
+  problems     Problem[]
 }
 
 model UserRevisionProblems {
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-
+  user             User @relation(fields: [userId], references: [id])
+  userId           Int
   problemContestId Int
   problemId        Int
 
