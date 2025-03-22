@@ -6,13 +6,11 @@ import { usePersonalTagStore } from '@/store/personal-tag-store'
 import { useproblemTagStore } from '@/store/problem-store'
 type ProblemTagComponentProps = {
     problem: userProblemListResult
-
 }
-
 const ProblemTagComponent = ({ problem }: ProblemTagComponentProps) => {
     const userPersonalTagsList = useproblemTagStore((store) => store.problemTags)
     const problemTagList = userPersonalTagsList.filter((ele) => ele.problemId === problem.id)
-    console.log(problemTagList)
+
     return (
         <div className='flex  col-span-3 gap-3 text-md w-full mr-auto overflow-x-hidden'>
             <div className='flex flex-wrap gap-3'>
@@ -22,7 +20,7 @@ const ProblemTagComponent = ({ problem }: ProblemTagComponentProps) => {
                         return (
 
                             <div key={key} className='flex gap-1 flex-wrap '>
-                                {/* {
+                                {
                                     ele.tags.map((tags, key) => {
                                         return (
                                             <div key={key} className='rounded-xl bg-gradient-to-r from-red-400 to-pink-400 p-3 py-1 h-fit'>
@@ -30,7 +28,7 @@ const ProblemTagComponent = ({ problem }: ProblemTagComponentProps) => {
                                             </div>
                                         )
                                     })
-                                } */}
+                                }
                             </div>
 
                         )

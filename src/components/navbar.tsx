@@ -1,4 +1,4 @@
-"use client"
+
 import React from 'react'
 import UserProfile from './user/user-profile'
 import Link from 'next/link'
@@ -20,10 +20,10 @@ const Navbar = () => {
             <div className='ml-auto my-auto mr-20 flex gap-5 items-center font-semibold'>
                 <Link href={"/dashboard"}>
                     <div className=''>
-                        Home
+                        Dashboard
                     </div>
                 </Link>
-                <Link href={"/personalfilter"}>
+                <Link href={"/personaltag"}>
                     <div>
                         Personal Tags
                     </div>

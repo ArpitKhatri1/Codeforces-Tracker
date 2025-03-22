@@ -13,6 +13,7 @@ const useProblemTags = () => {
             try {
                 const response = await axios.get(`/api/problemtag/`)
                 const data = await response.data
+                console.log(data.payload, "herwri watch")
                 setProblemTag(data.payload)
 
             } catch {

@@ -1,17 +1,10 @@
-"use client";
-import React, { useEffect } from 'react'
 
 import { cn } from '@/lib/utils'
 import { getProblemDate } from '@/utils/getProblemDate'
 import Link from 'next/link'
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { ContestListType, RevisionListType, userProblemListResult } from '@/types'
-import { Star } from 'lucide-react';
-import { Plus } from 'lucide-react'
-
-import useContestList from '@/hooks/useContestList';
 import RevisionStar from './revision/revision-star-component';
-import AddTagsPlus from './problemtags/add-tags-plus';
 import ProblemTagComponent from './problemtags/problem-tag-component';
 import NotePad from './notepad/notepad';
 type ProblemCardProps = {
@@ -89,7 +82,7 @@ const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => 
                 <RevisionStar problem={props} revisionList={revisionList} />
             </div>
             <div className="col-span-1 flex gap-3 justify-center items-center">
-                <NotePad />
+                <NotePad problem={props} />
             </div>
         </div>
     )

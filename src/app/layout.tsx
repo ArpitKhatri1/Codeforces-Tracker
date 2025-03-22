@@ -9,13 +9,17 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en min-h-screen min-w-screen">
+    <html lang="en ">
+      <head>
 
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>
+      </head>
       <body
         className={`antialiased h-full w-full `}
       >
 
-        <div className=" h-full">{children}</div>
+        <div className="min-h-screen">
+          {children}</div>
 
       </body>
     </html>

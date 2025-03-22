@@ -26,7 +26,7 @@ const RevisionStar = ({ problem, revisionList }: { problem: userProblemListResul
                         payload: problem
                     }
                 })
-                console.log(response)
+
                 setFilled(false)
             }
         } catch (error) {

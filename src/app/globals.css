@@ -82,3 +82,12 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar {
+  width: 1;
+  height: 1;
+}
+
+.landing-gradient {
+  background: linear-gradient(135deg, #fbd7ff, #ffdec1);
+}

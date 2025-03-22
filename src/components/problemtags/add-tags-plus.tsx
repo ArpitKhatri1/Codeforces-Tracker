@@ -14,13 +14,14 @@ import crypto from 'crypto'
 import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useproblemTagStore } from '@/store/problem-store'
+import usePersonalTags from '@/hooks/usePersonalTags'
 const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
     const router = useRouter()
     let [openState, setOpenState] = useState(false)
     const state = useRef<number>(0);
     const tagData = useproblemTagStore((store) => store.problemTags)
     const filteredTagData = tagData.filter((data) => data.problemId === problem.id)
-    console.log(filteredTagData)
+
     const tags = usePersonalTagStore((store) => store.tags)
 
     const [selectedTags, setSelectedTags] = useState<string[]>(filteredTagData.length > 0 ? filteredTagData[0].tags : [])
@@ -56,12 +57,12 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
                         tagNames: selectedTags,
                     })
                     state.current += 1;
-                    console.log(state.current)
+
                 } else {
-                    // await axios.patch("/api/problemtag", {
-                    //     problemId: problem.id,
-                    //     tagNames: selectedTags,
-                    // })
+                    await axios.patch("/api/problemtag", {
+                        problemId: problem.id,
+                        tagNames: selectedTags,
+                    })
                 }
             }
 
@@ -92,9 +93,9 @@ const AddTagsPlus = ({ problem }: { problem: userProblemListResult }) => {
                         {tags.map((ele) => (
                             <div
                                 key={ele.id}
-                                className={`px-3 rounded-lg py-1 cursor-pointer 
+                                className={`px-3 rounded-lg py-1 cursor-pointer ${selectedTags.includes(ele.name) ? "bg-rose-500 text-white" : "bg-rose-100"}
                                    `}
-                                //     ${selectedTags.includes(ele.name) ? "bg-rose-500 text-white" : "bg-rose-100"}
+
                                 onClick={() => toggleTag(ele.name)}
                             >
                                 {ele.name}

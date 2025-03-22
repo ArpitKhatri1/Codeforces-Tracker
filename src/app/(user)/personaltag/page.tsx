@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Plus } from 'lucide-react'
 import { getUserProfile } from '@/utils/getUserProfile'
 import TagCreationModal from '@/components/problemtags/tag-creation-modal'
-const PersonalFilter = async () => {
+const PersonalTag = async () => {
     const profile = await getUserProfile();
     if (!profile) {
         return;
@@ -26,7 +26,7 @@ const PersonalFilter = async () => {
                         <div className='flex gap-5 flex-wrap'>
                             {
                                 personalTagList.map((ele) => (
-                                    <Link href={`/personalfilter/${ele.name}`} key={ele.id}>
+                                    <Link href={`/personaltag/${ele.name}`} key={ele.id}>
                                         <div className='w-[20rem] h-[20rem]  rounded-xl overflow-hidden'>
                                             <div className=' w-full h-1/2 bg-gradient-to-b from-blue-100 to-rose-100'></div>
 
@@ -51,5 +51,5 @@ const PersonalFilter = async () => {
     )
 }
 
-export default PersonalFilter
+export default PersonalTag
 

@@ -11,7 +11,6 @@ export async function POST(res: Request) {
 
     const profile = await getUserProfile();
 
-    console.log(JSON.stringify(session));
     if (!handle || !session) {
       return new NextResponse("handle or profile is req", { status: 400 });
     }

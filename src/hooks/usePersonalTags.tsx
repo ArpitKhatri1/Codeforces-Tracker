@@ -12,6 +12,7 @@ const usePersonalTags = () => {
             try {
                 const response = await axios.get(`/api/personaltags`)
                 const data = await response.data
+                console.log("The fetched Tag Data is ", data.tags)
                 setPersonalTag(data.tags)
             } catch {
                 console.log("There was some error fetch user data")

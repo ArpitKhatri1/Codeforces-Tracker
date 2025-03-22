@@ -1,15 +1,27 @@
-"use client"
+
 import useRevisionList from '@/hooks/useRevisionList';
 import { useUserProblemList } from '@/hooks/useUserProblemList';
 import React, { useReducer } from 'react'
 import ProblemCard from '@/components/problem-card';
-const Revision = () => {
-    const handle = localStorage.getItem("CFTrackerID") as string;
-    const { response } = useUserProblemList(handle);
-    const { revisionList } = useRevisionList()
-    if (!revisionList) {
-        return;
+import { fetchProblems } from '@/lib/api-handlers';
+import { getUserProfile } from '@/utils/getUserProfile';
+import { prisma } from '@/lib/db';
+const Revision = async () => {
+    const profile = await getUserProfile()
+    if (!profile) {
+        return (
+            <div>
+                no profile found
+            </div>
+        )
     }
+    const response = await fetchProblems(profile.handle)
+    const revisionList = await prisma.userRevisionProblems.findMany({
+        where: {
+            userId: profile.id
+        }
+    })
+
     const newList = response?.result.filter((problem) => {
         let present = false;
         revisionList.forEach((revisonProblem) => {
@@ -19,7 +31,6 @@ const Revision = () => {
         })
         return present
     })
-
 
     return (
         <div>
