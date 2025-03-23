@@ -53,7 +53,7 @@ const SnippetEditor = ({ setIsOpen, problem, divDisplay, openState }: snippetEdi
         setIsOpen(false)
     }
     return (
-        <div className='h-screen w-[1000px] bg-white pointer flex pt-5 flex-col z-50' >
+        <div className='h-screen w-[60vw] bg-white pointer flex pt-5 flex-col z-50' >
             <header className='flex w-full items-center h-fit border-solid border-b-2 border-black pb-2 px-5'>
                 <div >
                     <div className='font-bold text-2xl'>

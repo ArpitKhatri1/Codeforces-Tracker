@@ -24,6 +24,7 @@ const NotePad = ({ problem, divDisplay, colourful }: { problem: userProblemListR
             <motion.div
                 initial={false}
                 animate={isOpen ? "open" : "closed"}
+                style={{ display: isOpen ? "block" : "none" }}
                 variants={variants}
                 className='absolute top-0 right-0'
             >

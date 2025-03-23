@@ -7,7 +7,7 @@ export const fetchProblems = async (
     const res = await fetch(
       `https://codeforces.com/api/user.status?handle=${handle}&from=1`,
       {
-        cache: "no-store",
+        next: { revalidate: 60 },
       }
     );
 

@@ -19,8 +19,11 @@ const Navbar = () => {
             </div>
             <div className='ml-auto my-auto mr-20 flex gap-5 items-center font-semibold'>
                 <Link href={"/dashboard"}>
+                    <div>
+                        Dashboard</div></Link>
+                <Link href={"/problems"}>
                     <div className=''>
-                        Dashboard
+                        Problems
                     </div>
                 </Link>
                 <Link href={"/personaltag"}>

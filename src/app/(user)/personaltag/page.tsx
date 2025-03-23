@@ -18,7 +18,7 @@ const PersonalTag = async () => {
     const personalTagList = tags
 
     return (
-        <div className=' h-full flex overflow-y-hidden justify-center p-3 relative bg-slate-100'>
+        <div className=' min-h-[calc(100vh-56px)] flex overflow-y-hidden justify-center p-3 relative bg-slate-100'>
             < div className='max-w-[1440px] w-full '>
 
                 {
@@ -31,7 +31,7 @@ const PersonalTag = async () => {
                                             <div className=' w-full h-1/2 bg-gradient-to-b from-blue-100 to-rose-100'></div>
 
                                             <div className='px-3 py-2 text-lg bg-neutral-300 h-1/2'>
-                                                {ele.name}
+                                                {ele.name[0].toUpperCase() + ele.name.slice(1)}
                                             </div>
                                         </div>
                                     </Link>
