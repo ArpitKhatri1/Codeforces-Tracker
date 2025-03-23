@@ -13,8 +13,15 @@ type ProblemListProps = {
     response: userProblemList,
     contestList: ContestListType[],
     revisionList: RevisionListType[]
+    snippets: snippetType
 }
-const ProblemList = ({ response, contestList, revisionList }: ProblemListProps) => {
+
+type snippetType = {
+    userId: number;
+    problemId: number;
+    snippetText: string;
+}[]
+const ProblemList = ({ snippets, response, contestList, revisionList }: ProblemListProps) => {
 
     usePersonalTags()
     useProblemTags()
@@ -41,6 +48,7 @@ const ProblemList = ({ response, contestList, revisionList }: ProblemListProps) 
                                 props={ele}
                                 contestList={contestList}
                                 revisionList={revisionList}
+                                snippets={snippets}
                             />
                         </div>
                     ))}

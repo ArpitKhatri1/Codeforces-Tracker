@@ -43,9 +43,10 @@ model User {
   codeforcesHandle String   @unique
   email            String   @unique
 
-  personalTags PersonalTags[]
-  revision     UserRevisionProblems[]
-  problems     Problem[]
+  personalTags   PersonalTags[]
+  revision       UserRevisionProblems[]
+  problems       Problem[]
+  ProblemSnippet ProblemSnippet[]
 }
 
 model UserRevisionProblems {
@@ -58,7 +59,10 @@ model UserRevisionProblems {
 }
 
 model ProblemSnippet {
-  snippetText String
+  snippetText String  @default("")
   problemId   Int     @unique
   problem     Problem @relation(fields: [problemId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

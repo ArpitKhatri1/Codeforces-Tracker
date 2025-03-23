@@ -6,6 +6,7 @@ import { ContestListType, userProblemList } from "@/types";
 import { getUserProfile } from "@/utils/getUserProfile";
 import { prisma } from "@/lib/db";
 import { fetchProblems } from "@/lib/api-handlers";
+
 type ContestResponse = {
     status: string;
     result: ContestListType[];
@@ -45,6 +46,12 @@ const Dashboard = async () => {
         }
     })
 
+    const snippets = await prisma.problemSnippet.findMany({
+        where: {
+            userId: userData.id
+        }
+    })
+
     return (
         <div className="h-full w-full p-5 flex justify-center">
             <div className="max-w-[1440px] w-full h-fit border-2 border-solid border-slate-200 rounded-xl overflow-y-hidden">
@@ -65,7 +72,7 @@ const Dashboard = async () => {
                         <div className="col-span-1 p-2">Snippets</div>
                     </div>
                     <div className="w-full">
-                        {finalResponse ? <ProblemList response={finalResponse} contestList={contestList} revisionList={revisionListDetails} /> : <p className="text-center text-gray-500">No solved problems found.</p>}
+                        {finalResponse ? <ProblemList snippets={snippets} response={finalResponse} contestList={contestList} revisionList={revisionListDetails} /> : <p className="text-center text-gray-500">No solved problems found.</p>}
                     </div>
                 </div>
             </div>

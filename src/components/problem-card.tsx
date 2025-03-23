@@ -10,10 +10,18 @@ import NotePad from './notepad/notepad';
 type ProblemCardProps = {
     props: userProblemListResult,
     contestList?: ContestListType[] | undefined,
-    revisionList: RevisionListType[] | null
+    revisionList: RevisionListType[] | null,
+    snippets: snippetType
 }
-const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => {
+type snippetType = {
+    userId: number;
+    problemId: number;
+    snippetText: string;
+}[]
+const ProblemCard = ({ snippets, props, contestList, revisionList }: ProblemCardProps) => {
 
+    const colourful = snippets.filter((ele) => ele.problemId === props.id)
+    const isColourful = colourful.length > 0 ? true : false;
     const div = contestList?.filter((ele) => (ele.id === props.contestId))
     let numberList: number[] = []
     if (div && div[0]) {
@@ -25,6 +33,8 @@ const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => 
         }
         numberList = num
     }
+
+    const divDisplay = `Div ${numberList.length == 1 ? (numberList[0]) : ""}`
 
     const { day, month, year } = getProblemDate(props.creationTimeSeconds)
     const tagColour = props.problem.rating ? cn(
@@ -82,7 +92,7 @@ const ProblemCard = ({ props, contestList, revisionList }: ProblemCardProps) => 
                 <RevisionStar problem={props} revisionList={revisionList} />
             </div>
             <div className="col-span-1 flex gap-3 justify-center items-center">
-                <NotePad problem={props} />
+                <NotePad problem={props} divDisplay={divDisplay} colourful={isColourful} />
             </div>
         </div>
     )
