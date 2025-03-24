@@ -1,7 +1,11 @@
 import React from 'react'
 import { GitBranch } from 'lucide-react';
 import Link from 'next/link';
-const LandingNavbar = () => {
+import { AverageDifficultyOfProblemSolved, RatingImprovementThisMonth, UserCurrentRatingaAndRank, UserMaxRatingAndRank } from '@/lib/dashboard/section1';
+const LandingNavbar = async () => {
+    console.log(await RatingImprovementThisMonth())
+    console.log(await UserMaxRatingAndRank())
+
     return (
         <div className=' flex justify-between p-5 items-center z-50 fixed w-[55vw] max-w-[1200px] bg-white blur-10 rounded-xl h-16 left-1/2 transform -translate-x-1/2 top-9'>
             <div className='flex gap-3'>
