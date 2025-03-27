@@ -1,7 +1,8 @@
 import { getUserProfile } from "@/utils/getUserProfile";
-import { userProblemListResult } from "./../../types";
+import { userProblemListResult } from "../../types";
 import axios from "axios";
 const secondsInOneMonth = 2592000;
+
 export function ACProblems(problemList: userProblemListResult[]) {
   const returnList = problemList.filter((problem) => {
     problem.verdict === "OK";
@@ -30,7 +31,7 @@ export function AverageDifficultyOfProblemSolved(
   return Math.round(average / 100) * 100;
 }
 
-export async function UserCurrentRatingaAndRank() {
+export async function UserCurrentRatingAndRank() {
   const profile = await getUserProfile();
   if (!profile) {
     return;

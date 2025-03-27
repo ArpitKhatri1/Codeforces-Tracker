@@ -1,7 +1,7 @@
 import React from 'react'
 import { GitBranch } from 'lucide-react';
 import Link from 'next/link';
-import { AverageDifficultyOfProblemSolved, RatingImprovementThisMonth, UserCurrentRatingaAndRank, UserMaxRatingAndRank } from '@/lib/dashboard/section1';
+import { AverageDifficultyOfProblemSolved, RatingImprovementThisMonth, UserMaxRatingAndRank } from '@/lib/dashboard/helper-functions';
 const LandingNavbar = async () => {
     console.log(await RatingImprovementThisMonth())
     console.log(await UserMaxRatingAndRank())
