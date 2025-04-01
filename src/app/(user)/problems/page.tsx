@@ -1,7 +1,7 @@
 import React from "react";
-import ProblemList from "@/components/dashboard/problems-list";
-import TagsFilter from "@/components/dashboard/tags-filter";
-import DateFilter from "@/components/dashboard/date-filter";
+import ProblemList from "@/components/problems/problems-list";
+import TagsFilter from "@/components/problems/tags-filter";
+import DateFilter from "@/components/problems/date-filter";
 import { ContestListType, userProblemList } from "@/types";
 import { getUserProfile } from "@/utils/getUserProfile";
 import { prisma } from "@/lib/db";

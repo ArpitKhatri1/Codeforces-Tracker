@@ -10,7 +10,6 @@ export const useFitlerByDate = (tagFilteredResponse: userProblemList) => {
 
     const currDate = useDateStore((store) => store.currDate);
 
-    // Function to check if a date is within a given range
     const isDateInRange = (itemDate: Date, startDate: Date, endDate: Date) => {
         const item = { year: itemDate.getFullYear(), month: itemDate.getMonth(), day: itemDate.getDate() };
         const start = { year: startDate.getFullYear(), month: startDate.getMonth(), day: startDate.getDate() };

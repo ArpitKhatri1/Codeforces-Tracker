@@ -1,5 +1,5 @@
-import DateFilter from '@/components/dashboard/date-filter'
-import TagsFilter from '@/components/dashboard/tags-filter'
+import DateFilter from '@/components/problems/date-filter'
+import TagsFilter from '@/components/problems/tags-filter'
 import React from 'react'
 
 const Loading = () => {

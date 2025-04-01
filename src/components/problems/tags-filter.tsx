@@ -13,7 +13,7 @@ import {
     DialogClose
 } from "@/components/ui/dialog"
 
-import { codeforcesTags } from '../../../constants'
+import { codeforcesTags } from '../../constants'
 import { useTagStore } from '@/store/tags-store'
 
 const TagsFilter = () => {

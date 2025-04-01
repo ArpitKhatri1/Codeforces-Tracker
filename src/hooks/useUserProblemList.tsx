@@ -15,7 +15,8 @@ export const useUserProblemList = (handle: string) => {
       try {
         const res = await fetch(`https://codeforces.com/api/user.status?handle=${handle}&from=1`)
         const data: userProblemList = await res.json()
-        const filteredData = data.result.filter((element) => element.verdict === "OK")
+        // const filteredData = data.result.filter((element) => element.verdict === "OK")
+        const filteredData = data.result
         setResponse({ status: data.status, result: filteredData });
       } catch {
         setError("something went wrong with fetching users problem list")
