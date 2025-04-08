@@ -78,7 +78,7 @@ const SolvingStats = ({ problemList }: { problemList: userProblemListResult[] })
                                             {key}
                                         </div>
 
-                                        <div className='w-[90%] bg-slate-100 h-8 rounded-xl overflow-hidden'>
+                                        <div className='w-[90%] bg-slate-100 h-6 rounded-xl overflow-hidden'>
                                             <div className={`bg-green-500  h-full`} style={{ width: `${percentage}%` }}>
 
                                             </div>

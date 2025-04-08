@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
-import ProblemCard from "../problem-card";
+import ProblemCard from "./problem-card";
 import useFilterByTag from "@/hooks/useFilterByTag";
 import useRevisionList from "@/hooks/useRevisionList";
 import usePersonalTags from "@/hooks/usePersonalTags";

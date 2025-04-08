@@ -21,7 +21,7 @@ const RevisionStar = ({ problem, revisionList }: { problem: userProblemListResul
                 await axios.post("/api/revision", { payload: problem });
                 setFilled(true);
             } else {
-                const response = await axios.delete("/api/revision", {
+                await axios.delete("/api/revision", {
                     data: {
                         payload: problem
                     }

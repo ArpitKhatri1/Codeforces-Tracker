@@ -75,6 +75,7 @@ export async function DELETE(req: Request) {
         },
       },
     });
+    console.log("in delete route");
 
     return NextResponse.json({
       msg: "Deleted Successfully",
