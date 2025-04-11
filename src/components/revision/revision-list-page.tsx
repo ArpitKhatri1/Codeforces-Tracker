@@ -44,9 +44,9 @@ const RevisionListPageComponent = ({ props, contestList, snippets }: PageProps) 
         props.problem.rating >= 1200 && props.problem.rating < 1400 && "bg-green-300 text-green-900", // Pupil
         // Specialist
         props.problem.rating >= 1400 && props.problem.rating < 1600 && "bg-teal-300 text-teal-900",  // Expert
-        props.problem.rating >= 1600 && props.problem.rating < 1900 && "bg-blue-300", // Candidate Master
-        props.problem.rating >= 1900 && props.problem.rating < 2100 && "bg-purple-300", // Master
-        props.problem.rating >= 2100 && "bg-red-500"  // Grandmaster+
+        props.problem.rating >= 1600 && props.problem.rating < 1900 && "bg-blue-300 text-blue-700", // Candidate Master
+        props.problem.rating >= 1900 && props.problem.rating < 2100 && "bg-purple-300 text-purple-900", // Master
+        props.problem.rating >= 2100 && "bg-red-500 text-red-900"  // Grandmaster+
     ) : null;
 
     const handleMarkDone = async () => {
